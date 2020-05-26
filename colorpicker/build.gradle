@@ -1,23 +1,5 @@
 apply plugin: 'com.android.library'
 
-ext {
-    bintrayRepo = 'Hong'
-    bintrayName = 'colorpicker'
-
-    publishedGroupId = 'com.github.duanhong169'
-    artifact = 'colorpicker'
-
-    libraryDescription = 'A `ColorPicker` for android'
-    libraryVersion = '1.1.6'
-
-    gitUrl = 'https://github.com/duanhong169/ColorPicker.git'
-    siteUrl = 'https://github.com/duanhong169/ColorPicker'
-
-    licenseName = 'Apache License 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -49,5 +31,3 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
-
-apply from: 'https://raw.githubusercontent.com/duanhong169/bintray-gradle/master/bintray.gradle'
