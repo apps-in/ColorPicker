@@ -2,6 +2,7 @@ package top.defaults.colorpicker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -52,7 +53,10 @@ public class ColorPickerPopup {
         final ColorPickerView colorPickerView = layout.findViewById(R.id.colorPickerView);
         popupWindow = new PopupWindow(layout, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        TypedArray typedArray = context.obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
+        int color = typedArray.getColor(0, Color.WHITE);
+        typedArray.recycle();
+        popupWindow.setBackgroundDrawable(new ColorDrawable(color));
         popupWindow.setOutsideTouchable(true);
         colorPickerView.setInitialColor(initialColor);
         colorPickerView.setEnabledBrightness(enableBrightness);
