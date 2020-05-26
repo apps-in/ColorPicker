@@ -3,7 +3,7 @@ package top.defaults.colorpicker;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -36,7 +36,6 @@ public class ColorPickerView extends LinearLayout implements ColorObservable {
         setOrientation(VERTICAL);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ColorPickerView);
-        boolean enableAlpha = typedArray.getBoolean(R.styleable.ColorPickerView_enableAlpha, false);
         boolean enableBrightness = typedArray.getBoolean(R.styleable.ColorPickerView_enableBrightness, true);
         onlyUpdateOnTouchEventUp = typedArray.getBoolean(R.styleable.ColorPickerView_onlyUpdateOnTouchEventUp, false);
         typedArray.recycle();

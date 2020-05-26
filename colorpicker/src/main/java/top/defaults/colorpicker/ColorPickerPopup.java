@@ -102,9 +102,7 @@ public class ColorPickerPopup {
             }
         });
 
-        if(Build.VERSION.SDK_INT >= 21){
-            popupWindow.setElevation(10.0f);
-        }
+        popupWindow.setElevation(10.0f);
 
         popupWindow.setAnimationStyle(R.style.TopDefaultsViewColorPickerPopupAnimation);
         if (parent == null) parent = layout;
@@ -173,11 +171,10 @@ public class ColorPickerPopup {
     }
 
     private String colorHex(int color) {
-        int a = Color.alpha(color);
         int r = Color.red(color);
         int g = Color.green(color);
         int b = Color.blue(color);
-        return String.format(Locale.getDefault(), "0x%02X%02X%02X%02X", a, r, g, b);
+        return String.format(Locale.getDefault(), "#%02X%02X%02X", r, g, b);
     }
 
     public abstract static class ColorPickerObserver implements ColorObserver {
