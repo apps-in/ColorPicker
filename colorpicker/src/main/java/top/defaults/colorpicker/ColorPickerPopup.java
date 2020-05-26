@@ -53,7 +53,7 @@ public class ColorPickerPopup {
         final ColorPickerView colorPickerView = layout.findViewById(R.id.colorPickerView);
         popupWindow = new PopupWindow(layout, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        TypedArray typedArray = context.obtainStyledAttributes(new int[] {android.R.attr.windowBackground});
+        TypedArray typedArray = context.obtainStyledAttributes(new int[] {android.R.attr.colorBackgroundFloating});
         int color = typedArray.getColor(0, Color.WHITE);
         typedArray.recycle();
         popupWindow.setBackgroundDrawable(new ColorDrawable(color));
