@@ -11,13 +11,10 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import top.defaults.logger.Logger;
-
 public class ColorPickerView extends LinearLayout implements ColorObservable {
 
     private ColorWheelView colorWheelView;
     private BrightnessSliderView brightnessSliderView;
-    private AlphaSliderView alphaSliderView;
     private ColorObservable observableOnDuty;
     private boolean onlyUpdateOnTouchEventUp;
 
@@ -55,7 +52,6 @@ public class ColorPickerView extends LinearLayout implements ColorObservable {
         addView(colorWheelView, params);
 
         setEnabledBrightness(enableBrightness);
-        setEnabledAlpha(enableAlpha);
 
         setPadding(margin, margin, margin, margin);
     }
@@ -69,20 +65,10 @@ public class ColorPickerView extends LinearLayout implements ColorObservable {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int maxWidth = MeasureSpec.getSize(widthMeasureSpec);
         int maxHeight = MeasureSpec.getSize(heightMeasureSpec);
-        if (BuildConfig.DEBUG) {
-            Logger.d("maxWidth: %d, maxHeight: %d", maxWidth, maxHeight);
-        }
 
         int desiredWidth = maxHeight - (getPaddingTop() + getPaddingBottom()) + (getPaddingLeft() + getPaddingRight());
         if (brightnessSliderView != null) {
             desiredWidth -= (sliderMargin + sliderHeight);
-        }
-        if (alphaSliderView != null){
-            desiredWidth -= (sliderMargin + sliderHeight);
-        }
-
-        if (BuildConfig.DEBUG) {
-            Logger.d("desiredWidth: %d", desiredWidth);
         }
 
         int width = Math.min(maxWidth, desiredWidth);
@@ -90,13 +76,7 @@ public class ColorPickerView extends LinearLayout implements ColorObservable {
         if (brightnessSliderView != null) {
             height += (sliderMargin + sliderHeight);
         }
-        if (alphaSliderView != null) {
-            height += (sliderMargin + sliderHeight);
-        }
 
-        if (BuildConfig.DEBUG) {
-            Logger.d("width: %d, height: %d", width, height);
-        }
         super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.getMode(widthMeasureSpec)),
                 MeasureSpec.makeMeasureSpec(height, MeasureSpec.getMode(heightMeasureSpec)));
     }
@@ -125,34 +105,6 @@ public class ColorPickerView extends LinearLayout implements ColorObservable {
             updateObservableOnDuty();
         }
 
-        if (alphaSliderView != null) {
-            setEnabledAlpha(true);
-        }
-    }
-
-    public void setEnabledAlpha(boolean enable) {
-        if (enable) {
-            if (alphaSliderView == null) {
-                alphaSliderView = new AlphaSliderView(getContext());
-                LinearLayout.LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, sliderHeight);
-                params.topMargin = sliderMargin;
-                addView(alphaSliderView, params);
-            }
-
-            ColorObservable bindTo = brightnessSliderView;
-            if (bindTo == null) {
-                bindTo = colorWheelView;
-            }
-            alphaSliderView.bind(bindTo);
-            updateObservableOnDuty();
-        } else {
-            if (alphaSliderView != null) {
-                alphaSliderView.unbind();
-                removeView(alphaSliderView);
-                alphaSliderView = null;
-            }
-            updateObservableOnDuty();
-        }
     }
 
     private void updateObservableOnDuty() {
@@ -166,21 +118,13 @@ public class ColorPickerView extends LinearLayout implements ColorObservable {
         if (brightnessSliderView != null) {
             brightnessSliderView.setOnlyUpdateOnTouchEventUp(false);
         }
-        if (alphaSliderView != null) {
-            alphaSliderView.setOnlyUpdateOnTouchEventUp(false);
-        }
 
-        if (brightnessSliderView == null && alphaSliderView == null) {
+        if (brightnessSliderView == null) {
             observableOnDuty = colorWheelView;
             colorWheelView.setOnlyUpdateOnTouchEventUp(onlyUpdateOnTouchEventUp);
         } else {
-            if (alphaSliderView != null) {
-                observableOnDuty = alphaSliderView;
-                alphaSliderView.setOnlyUpdateOnTouchEventUp(onlyUpdateOnTouchEventUp);
-            } else {
-                observableOnDuty = brightnessSliderView;
-                brightnessSliderView.setOnlyUpdateOnTouchEventUp(onlyUpdateOnTouchEventUp);
-            }
+            observableOnDuty = brightnessSliderView;
+            brightnessSliderView.setOnlyUpdateOnTouchEventUp(onlyUpdateOnTouchEventUp);
         }
 
         if (observers != null) {

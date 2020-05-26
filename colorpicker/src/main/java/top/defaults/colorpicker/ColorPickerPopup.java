@@ -22,7 +22,6 @@ public class ColorPickerPopup {
     private PopupWindow popupWindow;
     private int initialColor;
     private boolean enableBrightness;
-    private boolean enableAlpha;
     private String okTitle;
     private String cancelTitle;
     private boolean showIndicator;
@@ -33,7 +32,6 @@ public class ColorPickerPopup {
         this.context = builder.context;
         this.initialColor = builder.initialColor;
         this.enableBrightness = builder.enableBrightness;
-        this.enableAlpha = builder.enableAlpha;
         this.okTitle = builder.okTitle;
         this.cancelTitle = builder.cancelTitle;
         this.showIndicator = builder.showIndicator;
@@ -58,7 +56,6 @@ public class ColorPickerPopup {
         popupWindow.setOutsideTouchable(true);
         colorPickerView.setInitialColor(initialColor);
         colorPickerView.setEnabledBrightness(enableBrightness);
-        colorPickerView.setEnabledAlpha(enableAlpha);
         colorPickerView.setOnlyUpdateOnTouchEventUp(onlyUpdateOnTouchEventUp);
         colorPickerView.subscribe(observer);
         TextView cancel = layout.findViewById(R.id.cancel);
@@ -125,7 +122,6 @@ public class ColorPickerPopup {
         private Context context;
         private int initialColor = Color.MAGENTA;
         private boolean enableBrightness = true;
-        private boolean enableAlpha = false;
         private String okTitle = "OK";
         private String cancelTitle = "Cancel";
         private boolean showIndicator = true;
@@ -143,12 +139,6 @@ public class ColorPickerPopup {
 
         public Builder enableBrightness(boolean enable) {
             enableBrightness = enable;
-            return this;
-        }
-
-
-        public Builder enableAlpha(boolean enable) {
-            enableAlpha = enable;
             return this;
         }
 

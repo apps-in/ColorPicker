@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     void popup(View v) {
         new ColorPickerPopup.Builder(this)
                 .initialColor(colorPickerView.getColor())
-                .enableAlpha(true)
                 .okTitle("Choose")
                 .cancelTitle("Cancel")
                 .showIndicator(true)
